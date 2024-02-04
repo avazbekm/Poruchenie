@@ -2,7 +2,7 @@
 
 namespace Poruchenie.Domain.Etities;
 
-public class Yudik : Auditable
+public class Yurdik : Auditable
 {
     public string Name { get; set; } = string.Empty;
     public int INN { get; set; }
