@@ -1,0 +1,13 @@
+[
+  {
+    "Name": "",
+    "PINFL": "",
+    "CountNumber": "",
+    "MFO": "",
+    "Bank": "",
+    "Id": 1,
+    "CreatedAt": "2024-02-28T16:59:48.4432322Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  }
+]

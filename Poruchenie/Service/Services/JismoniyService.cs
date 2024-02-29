@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.IO;
 using Poruchenie.Domain.Etities;
 using Poruchenie.Service.Exceptions;
 using Poruchenie.Service.Interfaces;
@@ -13,6 +13,16 @@ public class JismoniyService : IJismoniyService
 
     public JismoniyService()
     {
+        try
+        {
+            string sources = File.ReadAllText(Path);
+        }
+        catch (FileNotFoundException)
+        {
+            // Faylni yaratish
+            using (StreamWriter writer = File.CreateText(Path))
+            { }
+        }
         string source = File.ReadAllText(Path);
         if (string.IsNullOrEmpty(source))
             File.WriteAllText(Path, "[]");
@@ -25,12 +35,23 @@ public class JismoniyService : IJismoniyService
 
         Jismoniy existJismoniy = jismoniys.FirstOrDefault(a => a.CountNumber.Equals(jismoniy.CountNumber));
         if (existJismoniy is not null)
+        {
+            existJismoniy.Name = jismoniy.Name;
+            existJismoniy.CountNumber = jismoniy.CountNumber;
+            existJismoniy.Bank = jismoniy.Bank;
+            existJismoniy.MFO = jismoniy.MFO;
+            existJismoniy.PINFL = jismoniy.PINFL;
+
+            source = JsonConvert.SerializeObject(jismoniys, Formatting.Indented);
+            File.WriteAllText(Path, source);
+
             return new Response<Jismoniy>
             {
-                StatusCode = 200,
-                Message = "Ok",
+                StatusCode = 403,
+                Message = "This jismoniy is already exist",
                 Data = jismoniy
             };
+        }
 
         Jismoniy lastJismoniy = jismoniys.LastOrDefault();
         if (lastJismoniy is null)

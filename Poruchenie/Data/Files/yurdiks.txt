@@ -1,0 +1,24 @@
+[
+  {
+    "Name": "Ovoza Plyus xususiy korxonasi",
+    "INN": 301966695,
+    "CountNumber": "20208000104909266001",
+    "MFO": "00450",
+    "Bank": "Milliy bank Buvayda BXM",
+    "Id": 1,
+    "CreatedAt": "2024-02-27T13:50:16.6669493Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "Dunyo Kitoblari MCHJ",
+    "INN": 123456789,
+    "CountNumber": "20208000123456789001",
+    "MFO": "01158",
+    "Bank": "\"Kapitalbank\" ATB ''Kapital 24'' chakana biznes filiali",
+    "Id": 2,
+    "CreatedAt": "2024-02-28T06:22:51.5904454Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  }
+]

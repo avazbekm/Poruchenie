@@ -4,18 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Poruchenie"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="740" Width="700">
+        Title="MainWindow" 
+        Height="750" 
+        Width="700"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="270"/>
             <RowDefinition Height="270"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <!-- To'lovchi qatori -->
 
-        <Grid Grid.Row="0">
+        <!-- Yurdik to'lovchi qatori -->
+        <Grid Grid.Row="0"
+              x:Name="Yurdik"
+              Visibility="Collapsed">
             <StackPanel>
                 <!-- sana qatori -->
                 <Grid>
@@ -26,38 +31,57 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-            
-                    <ComboBox Grid.Column="0" FontSize="20" SelectedIndex="0" Margin="8 5 5 5">
+
+                    <ComboBox x:Name="cbYudik1"
+                              Grid.Column="0" 
+                              FontSize="20" 
+                              SelectedIndex="0" 
+                              Margin="8,5,5,0" 
+                              Height="39" 
+                              VerticalAlignment="Top" 
+                              SelectionChanged="cbYudik1_SelectionChanged">
+
                         <ComboBoxItem FontSize="15">Yurdik shaxs</ComboBoxItem>
-                        <ComboBoxItem FontSize="15" >Jismoniy shaxs</ComboBoxItem>
+                        <ComboBoxItem FontSize="15">Jismoniy shaxs</ComboBoxItem>
                     </ComboBox>
-            
+
                     <Label Grid.Column="1" 
                            Content="№" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
+                           HorizontalContentAlignment="Center"/>
 
-                    <TextBox Grid.Column="2" 
-                             Margin="0 5 5 5" 
+                    <TextBox x:Name="tbMainNuber"
+                             Grid.Column="2" 
+                             Margin="0,5,5,0" 
+                             MaxLength="5"
                              FontSize="20" 
                              Padding="2 2 2 2"
-                             FlowDirection="RightToLeft"/>
+                             FlowDirection="RightToLeft" 
+                             Height="39" 
+                             VerticalAlignment="Top" 
+                             TextChanged="tbMainNuber_TextChanged"/>
 
                     <Label Grid.Column="3" 
                            Content="Sana:" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
+                           HorizontalContentAlignment="Center"/>
 
-                    <TextBox Grid.Column="4"
-                             MaxLength="10"
-                             Margin="0 5 8 5" 
-                             FontSize="20"
-                             Padding="10 2 5 2"
-                             />
+                    <Border x:Name="tbDate"
+                             Grid.Column="4"
+                             Margin="0 5 8 5">
+
+                        <DatePicker x:Name="datePicker" 
+                                    SelectedDate="{x:Static sys:DateTime.Now}"
+                                    FontSize="20"
+                                    Padding="2"
+                                    Margin="2"
+                                    SelectedDateFormat="Short" 
+                                    DisplayDateStart="01/01/1900" 
+                                    DisplayDateEnd="01/01/2100"/>
+
+                    </Border>
                 </Grid>
-        
+
                 <!-- Hisobraqam qatori -->
 
                 <Grid Margin="0 5">
@@ -68,30 +92,36 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0"
-                           Margin="2 5 0 5"
+                    <Label Margin="2 5 0 5"
                            Content="To'lovchi x/r:" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="1"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiXr"
+                             Grid.Column="1"
+                             AcceptsReturn="True" 
+                             TextWrapping="Wrap"
                              MaxLength="20"
-                             Margin="5 5" 
+                             Margin="5,5,5,5" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_1"/>
+
                     <Label Grid.Column="2" 
                            Content="INN:" 
                            FontSize="20"
                            HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="3"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiInn"
+                             Grid.Column="3"
                              MaxLength="9"
-                             Margin="5 5 8 5" 
+                             Margin="5,5,8,0" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_2" 
+                             Height="37" 
+                             VerticalAlignment="Top"/>
                 </Grid>
 
                 <!-- To'lovchi nomi qatori -->
@@ -99,27 +129,35 @@
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="285"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                           Margin="2 5 0 5"
+                           Margin="2,5,0,5"
                            Content="To'lovchi nomi:" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="1"
-                             MaxLength="50"
-                             Margin="5 5" 
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiNomi"
+                             Grid.Column="1"
+                             MaxLength="60"
+                             Margin="7,5,3,5" 
                              FontSize="20"
-                             Padding="5 3 5 2" TextChanged="TextBox_TextChanged"
-                             />
-                    <Button Grid.Column="2" 
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged" 
+                             Grid.ColumnSpan="5"
+                             HorizontalContentAlignment="Left"/>
+
+                    <Button x:Name="btnSave"
+                            Grid.Column="6" 
                             Content="Save"
-                            Margin="0 5 10 5"
-                            >
-                    </Button>
+                            Margin="0,5,10,5" 
+                            Click="btnSave_Click"/>
                 </Grid>
 
                 <!-- bank nomi qatori -->
@@ -128,36 +166,39 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="90"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                    Margin="2 5 0 5"
-                    Content="MFO:" 
-                    FontSize="20"
-                    HorizontalContentAlignment="Center"
-                    />
-                    <TextBox Grid.Column="1"
-                      MaxLength="5"
-                      Margin="5 5" 
-                      FontSize="20"
-                      Padding="5 3 5 2"
-                      />
+                            Margin="2 5 0 5"
+                            Content="MFO:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiMfo" 
+                             Grid.Column="1"
+                             MaxLength="5"
+                             Margin="5 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="tbTulovchiMfo_TextChanged"/>
+
                     <Label Grid.Column="2" 
-                    Content="Bank:" 
-                    FontSize="20"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    />
-                    <TextBox Grid.Column="3"
-                      MaxLength="50"
-                      Margin="5 5 8 5" 
-                      FontSize="20"
-                      Padding="5 3 5 2"
-                      />
+                           Content="Bank:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiBank"
+                             Grid.Column="3"
+                             MaxLength="50"
+                             Margin="5 5 8 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_3"/>
                 </Grid>
-        
+
                 <!-- summa nomi qatori -->
 
                 <Grid Margin="5 5">
@@ -167,25 +208,245 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                    Margin="2 5 0 5"
-                    Content="Summa:" 
-                    FontSize="20"
-                    />
-                    <TextBox Grid.Column="1"
-                      FontSize="20"
-                      Margin="5 5 8 5" 
-                      Padding="5 3 5 2"
-                      />
-                </Grid>
+                           Margin="2 5 0 5"
+                           Content="Summa:" 
+                           FontSize="20"/>
 
+                    <TextBox x:Name="tbSumma"
+                             Grid.Column="1"
+                             FontSize="20"
+                             MaxLength="15"
+                             Margin="5,5,8,0" 
+                             Padding="10 7 5 2" 
+                             TextChanged="TextBox_TextChanged_5"
+                             Height="37" 
+                              VerticalAlignment="Center"
+                             FontFamily="Arial"/>
+                </Grid>
             </StackPanel>
         </Grid>
 
-        <!-- Oluvchi qatori -->
-
-        <Grid Grid.Row="1">
+        <!-- Jismoniy to'lovchi qatori-->
+        <Grid Grid.Row="0"
+              x:Name="Jismoniy"
+              Visibility="Visible">
             <StackPanel>
-                <ComboBox Grid.Column="0" FontSize="20" SelectedIndex="0" Margin="8 5 5 5">
+                <!--sana qatori-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="cbYurdik"
+                              Grid.Column="0" 
+                              FontSize="20" 
+                              SelectedIndex="1" 
+                              Margin="8 5 5 5" 
+                              Height="39" 
+                              VerticalAlignment="Top" 
+                              SelectionChanged="cbYurdik_SelectionChanged">
+
+
+                        <ComboBoxItem FontSize="15">Yurdik shaxs</ComboBoxItem>
+                        <ComboBoxItem FontSize="15">Jismoniy shaxs</ComboBoxItem>
+                    </ComboBox>
+
+                    <Label Grid.Column="1" 
+                           Content="№" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbMainNuber2"
+                             Grid.Column="2" 
+                             MaxLength="5"
+                             Margin="0,5,5,0" 
+                             FontSize="20" 
+                             Padding="2 2 2 2"
+                             FlowDirection="RightToLeft" 
+                             Height="39" 
+                             VerticalAlignment="Top" 
+                             TextChanged="tbMainNuber_TextChanged"/>
+
+                    <Label Grid.Column="3" 
+                           Content="Sana:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+                    <Border x:Name="tbDate2"
+                             Grid.Column="4"
+                             Margin="0 5 8 5">
+
+                        <DatePicker x:Name="datePicker2" 
+                                    SelectedDate="{x:Static sys:DateTime.Now}"
+                                    FontSize="20"
+                                    Padding="2"
+                                    Margin="2"
+                                    SelectedDateFormat="Short" 
+                                    DisplayDateStart="01/01/1900" 
+                                    DisplayDateEnd="01/01/2100"/>
+
+                    </Border>
+                </Grid>
+
+                <!--Hisobraqam qatori-->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="87"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Margin="2 5 0 5"
+                           Content="To'lovchi x/r:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+
+                    <TextBox x:Name="tbTulovchiXr2"
+                             Grid.Column="1"
+                             AcceptsReturn="True" 
+                             TextWrapping="Wrap"
+                             MaxLength="20"
+                             Margin="5,5,5,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_1"/>
+
+                    <Label Grid.Column="2" 
+                           Content="JSHSHIR:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiJshshir"
+                             Grid.Column="3"
+                             MaxLength="14"
+                             Margin="5,5,8,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="Jshshir"/>
+                </Grid>
+
+                <!--To'lovchi nomi qatori-->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="285"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Margin="2,5,0,5"
+                           Content="To'lovchi nomi:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiNomi2"
+                             Grid.Column="1"
+                             MaxLength="60"
+                             Margin="7,5,3,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged" 
+                             Grid.ColumnSpan="5"
+                             HorizontalContentAlignment="Left"/>
+
+                    <Button x:Name="btnSave2"
+                            Grid.Column="6" 
+                            Margin="0,5,10,5" 
+                            Content="Save"
+                            Click="btnSave_Click"/>
+
+                </Grid>
+
+                <!--bank nomi qatori-->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                            Margin="2 5 0 5"
+                            Content="MFO:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiMfo2" 
+                             Grid.Column="1"
+                             MaxLength="5"
+                             Margin="5,5,5,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" TextChanged="tbTulovchiMfo_TextChanged"/>
+
+                    <Label Grid.Column="2" 
+                           Content="Bank:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbTulovchiBank2"
+                             Grid.Column="3"
+                             MaxLength="50"
+                             Margin="5 5 8 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_3"/>
+                </Grid>
+
+                <!--summa nomi qatori-->
+
+                <Grid Margin="5 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Margin="2 5 0 5"
+                           Content="Summa:" 
+                           FontSize="20"/>
+
+                    <TextBox x:Name="tbSumma2"
+                             Grid.Column="1"
+                             FontSize="20"
+                             MaxLength="15"
+                             Margin="5,5,8,0" 
+                             Padding="10 7 5 2" 
+                             TextChanged="TextBox_TextChanged_5"
+                             Height="37" 
+                             VerticalAlignment="Center"
+                             FontFamily="Arial"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <!-- Yurdik oluvchi qatori -->
+        <Grid Grid.Row="1"
+              x:Name="Yurdik1"
+              Visibility="Collapsed">
+            <StackPanel>
+                <ComboBox Grid.Column="0"
+                          x:Name="cbYurdikk"
+                          FontSize="20" 
+                          SelectedIndex="0" 
+                          Margin="8 5 5 5"
+                          SelectionChanged="cbYurdikk_SelectionChanged">
+
                     <ComboBoxItem FontSize="15">Yurdik shaxs</ComboBoxItem>
                     <ComboBoxItem FontSize="15" >Jismoniy shaxs</ComboBoxItem>
                 </ComboBox>
@@ -204,26 +465,29 @@
                            Margin="2 5 0 5"
                            Content="Oluvchi x/r:" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="1"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiXr"
+                             Grid.Column="1"
                              MaxLength="20"
                              Margin="5 5" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_4"/>
+
                     <Label Grid.Column="2" 
                            Content="INN:" 
                            FontSize="20"
                            HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="3"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiInn"
+                             Grid.Column="3"
                              MaxLength="9"
                              Margin="5 5 8 5" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2" 
+                             TextChanged="tbOluvchiInn_TextChanged"/>
                 </Grid>
 
                 <!-- To'lovchi nomi qatori -->
@@ -239,19 +503,20 @@
                            Margin="2 5 0 5"
                            Content="Oluvchi nomi:" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
-                    <TextBox Grid.Column="1"
-                             MaxLength="50"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiNomi" 
+                             Grid.Column="1"
+                             MaxLength="60"
                              Margin="5 5" 
                              FontSize="20"
-                             Padding="5 3 5 2" TextChanged="TextBox_TextChanged"
-                             />
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged"/>
+
                     <Button Grid.Column="2" 
                             Content="Save"
-                            Margin="0 5 10 5"
-                            >
-                    </Button>
+                            Margin="0 5 10 5" 
+                            Click="Button_Click"/>
                 </Grid>
 
                 <!-- bank nomi qatori -->
@@ -265,29 +530,33 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                    Margin="2 5 0 5"
-                    Content="MFO:" 
-                    FontSize="20"
-                    HorizontalContentAlignment="Center"
-                    />
-                    <TextBox Grid.Column="1"
-                      MaxLength="5"
-                      Margin="5 5" 
-                      FontSize="20"
-                      Padding="5 3 5 2"
-                      />
+                            Margin="2 5 0 5"
+                            Content="MFO:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiMfo" 
+                             Grid.Column="1"
+                             MaxLength="5"
+                             Margin="5,0,5,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             Height="37" 
+                             VerticalAlignment="Bottom" 
+                             TextChanged="tbOluvchiMfo_TextChanged"/>
+
                     <Label Grid.Column="2" 
-                    Content="Bank:" 
-                    FontSize="20"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    />
-                    <TextBox Grid.Column="3"
-                      MaxLength="50"
-                      Margin="5 5 8 5" 
-                      FontSize="20"
-                      Padding="5 3 5 2"
-                      />
+                            Content="Bank:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiBank" 
+                             Grid.Column="3"
+                             MaxLength="50"
+                             Margin="5 5 8 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2"/>
                 </Grid>
 
                 <!-- summa nomi qatori -->
@@ -299,23 +568,175 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                    Margin="2 5 0 5"
-                    Content="Summa so'z bilan:" 
-                    FontSize="20"
-                    />
-                    <TextBox Grid.Column="1"
-                      FontSize="15"
-                      Margin="5 5 8 5" 
-                      Padding="2 1 2 1"
-                      />
-                </Grid>
+                           Margin="2 5 0 5"
+                           Content="Summa so'z bilan:" 
+                           FontSize="20"/>
 
+                    <Border Grid.Column="1"
+                            BorderBrush="#B19470"
+                            Margin="5" 
+                            BorderThickness="1"
+                            Padding="2 1 2 1">
+
+                        <TextBlock x:Name="tbSummaSoz" 
+                                   FontSize="15"/>
+                    </Border>
+                </Grid>
             </StackPanel>
         </Grid>
+
+        <!-- Jismoniy oluvchi qatori -->
+        <Grid Grid.Row="1"
+              x:Name="Jismoniy1"
+              Visibility="Visible">
+            <StackPanel>
+                <ComboBox Grid.Column="0"
+                          x:Name="cbJismoniy"
+                          FontSize="20" 
+                          SelectedIndex="1" 
+                          Margin="8 5 5 5" SelectionChanged="cbJismoniy_SelectionChanged">
+
+                    <ComboBoxItem FontSize="15">Yurdik shaxs</ComboBoxItem>
+                    <ComboBoxItem FontSize="15" >Jismoniy shaxs</ComboBoxItem>
+                </ComboBox>
+
+                <!-- Hisobraqam qatori -->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="87"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Margin="2 5 0 5"
+                           Content="Oluvchi x/r:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiXr1"
+                             Grid.Column="1"
+                             MaxLength="20"
+                             Margin="5 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged_4"/>
+
+                    <Label Grid.Column="2" 
+                           Content="JSHSHIR" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiJshshir"
+                             Grid.Column="3"
+                             MaxLength="14"
+                             Margin="5 5 8 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="tbJshshir"/>
+                </Grid>
+
+                <!-- To'lovchi nomi qatori -->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Margin="2 5 0 5"
+                           Content="Oluvchi nomi:" 
+                           FontSize="20"
+                           HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiNomi1" 
+                             Grid.Column="1"
+                             MaxLength="60"
+                             Margin="5 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             TextChanged="TextBox_TextChanged"/>
+
+                    <Button Grid.Column="2" 
+                            Content="Save"
+                            Margin="0 5 10 5" 
+                            Click="Button_Click"/>
+                </Grid>
+
+                <!-- bank nomi qatori -->
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                            Margin="2 5 0 5"
+                            Content="MFO:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiMfo1" 
+                             Grid.Column="1"
+                             MaxLength="5"
+                             Margin="5,0,5,5" 
+                             FontSize="20"
+                             Padding="5 3 5 2" 
+                             Height="37" 
+                             VerticalAlignment="Bottom" 
+                             TextChanged="tbOluvchiMfo_TextChanged"/>
+
+                    <Label Grid.Column="2" 
+                            Content="Bank:" 
+                            FontSize="20"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"/>
+
+                    <TextBox x:Name="tbOluvchiBank1" 
+                             Grid.Column="3"
+                             MaxLength="50"
+                             Margin="5 5 8 5" 
+                             FontSize="20"
+                             Padding="5 3 5 2"/>
+                </Grid>
+
+                <!-- summa nomi qatori -->
+
+                <Grid Margin="5 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Margin="2 5 0 5"
+                           Content="Summa so'z bilan:" 
+                           FontSize="20"/>
+
+                    <Border Grid.Column="1"
+                            BorderBrush="#B19470"
+                            Margin="5" 
+                            BorderThickness="1"
+                            Padding="2 1 2 1">
+
+                        <TextBlock x:Name="tbSummaSoz1" 
+                                   FontSize="15"/>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
         <Grid Grid.Row="2">
             <StackPanel>
                 <!-- To'lov maqsadi qatori -->
-
                 <Grid  Margin="5 5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170"/>
@@ -323,15 +744,17 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                        Margin="2 5 0 5"
+                        Margin="2,5,0,5"
                         Content="To'lov maqsadi:" 
-                        FontSize="20"
-                        />
+                        FontSize="20"/>
+
                     <TextBox Grid.Column="1"
-                          FontSize="15"
-                          Margin="5 5 8 5" 
-                          Padding="2 1 2 1"
-                          />
+                             x:Name="tbTulovMaqsad"
+                             MaxLength="150"
+                             FontSize="15"
+                             Width="490"
+                             Margin="5,1,5,1"
+                             Padding="3 10"/>
                 </Grid>
 
                 <!-- Rahbar qatori -->
@@ -348,55 +771,74 @@
                            Margin="2 5 0 5"
                            Content="Rahbar :" 
                            FontSize="20"
-                           HorizontalContentAlignment="Center"
-                           />
+                           HorizontalContentAlignment="Center"/>
+
                     <TextBox Grid.Column="1"
+                             x:Name="tbRahbar"
                              MaxLength="20"
                              Margin="5 5" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2"/>
+
                     <Label Grid.Column="2" 
                            Content="Bosh xisobchi :" 
                            FontSize="20"
                            HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           />
+                           VerticalContentAlignment="Center"/>
+
                     <TextBox Grid.Column="3"
+                             x:Name="tbBoshXisobchi"
                              MaxLength="20"
+                             BorderThickness="1"
                              Margin="5 5 10 5" 
                              FontSize="20"
-                             Padding="5 3 5 2"
-                             />
+                             Padding="5 3 5 2"/>
                 </Grid>
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
-                            Margin="0 0 0 6"
-                            Width="200"
-                            Height="45"
-                            Content="Pechat"
-                            FontSize="20"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" Click="Button_Click_1">
 
-                    </Button>
+                    <ComboBox x:Name="Muhr" 
+                              Grid.Column="0"
+                              Margin="0 0 0 6"
+                              Width="200"
+                              Height="45"
+                              FontSize="20"
+                              SelectedIndex="0"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center" >
+
+                        <ComboBoxItem FontSize="25">Seale</ComboBoxItem>
+                        <ComboBoxItem FontSize="25">Unsealed</ComboBoxItem>
+
+                    </ComboBox>
 
                     <Button Grid.Column="1"
                             Margin="0 0 0 6"
                             Width="200"
                             Height="45"
-                            Content="Chiqish"
+                            Content="Print"
                             FontSize="20"
                             HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" Click="Button_Click">
+                            VerticalContentAlignment="Center"
+                            Click="btnPechat"/>
 
-                    </Button>
+
+                    <Button Grid.Column="2"
+                            Margin="0 0 0 6"
+                            Width="200"
+                            Height="45"
+                            Content="Exit"
+                            FontSize="20"
+                            HorizontalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="btnExit"/>
+
                 </Grid>
-
             </StackPanel>
         </Grid>
     </Grid>
