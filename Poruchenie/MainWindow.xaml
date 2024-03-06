@@ -812,8 +812,8 @@
                               HorizontalContentAlignment="Center"
                               VerticalContentAlignment="Center" >
 
-                        <ComboBoxItem FontSize="25">Seale</ComboBoxItem>
-                        <ComboBoxItem FontSize="25">Unsealed</ComboBoxItem>
+                        <ComboBoxItem FontSize="25">Muhrli</ComboBoxItem>
+                        <ComboBoxItem FontSize="25">Muhrsiz</ComboBoxItem>
 
                     </ComboBox>
 

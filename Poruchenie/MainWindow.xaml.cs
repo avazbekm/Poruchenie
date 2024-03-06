@@ -131,7 +131,7 @@ public partial class MainWindow : Window
         string selectedValue = ((ComboBoxItem)Muhr.SelectedItem).Content.ToString();
         
         // yurdikdan yurdikka muhrli bo'lganda
-        if (selectedValue.Equals("Seale") && 
+        if (selectedValue.Equals("Muhrli") && 
             Yurdik.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -202,7 +202,7 @@ public partial class MainWindow : Window
         }
 
         // yurdikdan yurdikka muhrsiz bo'lganda
-        else if (selectedValue.Equals("Unsealed") && 
+        else if (selectedValue.Equals("Muhrsiz") && 
             Yurdik.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -272,7 +272,7 @@ public partial class MainWindow : Window
         }
 
         // YaTT dan yudikka muhrli bo'lganda
-        else if (selectedValue.Equals("Seale") && 
+        else if (selectedValue.Equals("Muhrli") && 
             Jismoniy.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -342,7 +342,7 @@ public partial class MainWindow : Window
         }
 
         // YaTT dan yudikka muhrsiz bo'lganda
-        else if (selectedValue.Equals("Unsealed") && 
+        else if (selectedValue.Equals("Muhrsiz") && 
             Jismoniy.Visibility==Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -412,7 +412,7 @@ public partial class MainWindow : Window
         }
 
         // YaTT dan YaTTga muhrsiz bo'lganda
-        else if (selectedValue.Equals("Unsealed") &&
+        else if (selectedValue.Equals("Muhrsiz") &&
             Jismoniy.Visibility == Visibility.Visible &&
             Jismoniy1.Visibility == Visibility.Visible)
         {
@@ -484,7 +484,7 @@ public partial class MainWindow : Window
         }
 
         // YaTT dan YaTTga muhrli bo'lganda
-        else if (selectedValue.Equals("Seale") &&
+        else if (selectedValue.Equals("Muhrli") &&
             Jismoniy.Visibility == Visibility.Visible &&
             Jismoniy1.Visibility == Visibility.Visible)
         {
@@ -556,7 +556,7 @@ public partial class MainWindow : Window
         }
 
         // Yurdikdan YaTTga muhrli bo'lganda
-        else if (selectedValue.Equals("Seale") &&
+        else if (selectedValue.Equals("Muhrli") &&
             Yurdik.Visibility == Visibility.Visible &&
             Jismoniy1.Visibility == Visibility.Visible)
         {
@@ -628,7 +628,7 @@ public partial class MainWindow : Window
         }
 
         // Yurdikdan YaTTga muhrsiz bo'lganda
-        else if (selectedValue.Equals("Unsealed") &&
+        else if (selectedValue.Equals("Muhrsiz") &&
             Yurdik.Visibility == Visibility.Visible &&
             Jismoniy1.Visibility == Visibility.Visible)
         {
