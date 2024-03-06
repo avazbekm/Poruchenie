@@ -69,6 +69,9 @@ public partial class MainWindow : Window
                 pch.tbTulovchi.Text = tbTulovchiNomi.Text;
 
                 tbTulovchiMfo.Text = existCount.Data.MFO;
+
+                tbRahbar.Text = existCount.Data.Rahbar;
+                tbBoshXisobchi.Text=existCount.Data.BoshXisobchi;
             }
 
             // Agar 20 ta raqam to'liq kiritilgan bo'lsa, texboxga kiritishni to'xtatamiz
@@ -87,6 +90,9 @@ public partial class MainWindow : Window
                 pch.tbTulovchi.Text = tbTulovchiNomi.Text;
 
                 tbTulovchiMfo2.Text = existCountJismoniy.Data.MFO;
+                tbRahbar.Text = existCountJismoniy.Data.Rahbar;
+                tbBoshXisobchi.Text = existCountJismoniy.Data.Rahbar;
+
             }
 
             // Agar 20 ta raqam to'liq kiritilgan bo'lsa, texboxga kiritishni to'xtatamiz
@@ -110,6 +116,8 @@ public partial class MainWindow : Window
             yurdik.CountNumber = tbTulovchiXr.Text;
             yurdik.INN = Convert.ToInt32(tbTulovchiInn.Text);
             yurdik.MFO = tbTulovchiMfo.Text;
+            yurdik.Rahbar = tbRahbar.Text;
+            yurdik.BoshXisobchi = tbBoshXisobchi.Text;
 
             await yurdikService.CreateAsync(yurdik);
         }
@@ -121,6 +129,7 @@ public partial class MainWindow : Window
             jismoniy.CountNumber = tbTulovchiXr2.Text;
             jismoniy.PINFL = tbTulovchiJshshir.Text;
             jismoniy.MFO = tbTulovchiMfo2.Text;
+            jismoniy.Rahbar= tbRahbar.Text;
 
             await jismoniyService.CreateAsync(jismoniy);
         }

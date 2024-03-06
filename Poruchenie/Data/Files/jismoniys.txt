@@ -1,12 +1,13 @@
 [
   {
-    "Name": "",
-    "PINFL": "",
-    "CountNumber": "",
-    "MFO": "",
-    "Bank": "",
+    "Name": "YaTT Abdullayev Nosirali",
+    "PINFL": "123456789",
+    "CountNumber": "20218000123456789001",
+    "MFO": "00545",
+    "Bank": "\"O'zmilliybank\" Qo'qon filiali",
+    "Rahbar": "N.Abdullayev",
     "Id": 1,
-    "CreatedAt": "2024-02-28T16:59:48.4432322Z",
+    "CreatedAt": "2024-03-06T17:20:33.507728Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
   }

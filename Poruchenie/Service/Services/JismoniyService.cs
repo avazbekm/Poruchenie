@@ -41,6 +41,7 @@ public class JismoniyService : IJismoniyService
             existJismoniy.Bank = jismoniy.Bank;
             existJismoniy.MFO = jismoniy.MFO;
             existJismoniy.PINFL = jismoniy.PINFL;
+            existJismoniy.Rahbar = jismoniy.Rahbar;
 
             source = JsonConvert.SerializeObject(jismoniys, Formatting.Indented);
             File.WriteAllText(Path, source);

@@ -44,6 +44,8 @@ public class YurdikService : IYurdikService
             existYurdik.CountNumber = yurdik.CountNumber;
             existYurdik.Bank = yurdik.Bank;
             existYurdik.MFO = yurdik.MFO;
+            existYurdik.Rahbar = yurdik.Rahbar;
+            existYurdik.BoshXisobchi = yurdik.BoshXisobchi;
 
             source = JsonConvert.SerializeObject(yurdiks, Formatting.Indented);
             File.WriteAllText(Path, source);
