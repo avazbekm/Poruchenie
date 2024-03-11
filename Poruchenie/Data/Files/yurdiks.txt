@@ -11,5 +11,18 @@
     "CreatedAt": "2024-03-06T17:18:30.0744285Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
+  },
+  {
+    "Name": "dhjhgfgdgbnnv",
+    "INN": 666666666,
+    "CountNumber": "20208000555555555555",
+    "MFO": "00525",
+    "Bank": "\"Agrobank\" ATB Buvayda filiali",
+    "Rahbar": "",
+    "BoshXisobchi": "",
+    "Id": 2,
+    "CreatedAt": "2024-03-11T09:57:29.9908795Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
   }
 ]

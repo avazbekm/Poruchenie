@@ -10,5 +10,41 @@
     "CreatedAt": "2024-03-06T17:20:33.507728Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
+  },
+  {
+    "Name": "",
+    "PINFL": "85666666666666",
+    "CountNumber": "",
+    "MFO": "",
+    "Bank": "",
+    "Rahbar": "",
+    "Id": 2,
+    "CreatedAt": "2024-03-11T08:53:59.8615437Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "YaTT Haydarov Olim",
+    "PINFL": "55555555555555",
+    "CountNumber": "20218000300276133001",
+    "MFO": "00545",
+    "Bank": "\"O'zmilliybank\" Qo'qon filiali",
+    "Rahbar": "",
+    "Id": 3,
+    "CreatedAt": "2024-03-11T09:47:44.2650528Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "fdzfsdbdfadsfads",
+    "PINFL": "12145454545454",
+    "CountNumber": "20218000300276001111",
+    "MFO": "00545",
+    "Bank": "\"O'zmilliybank\" Qo'qon filiali",
+    "Rahbar": "",
+    "Id": 4,
+    "CreatedAt": "2024-03-11T09:56:31.85888Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
   }
 ]

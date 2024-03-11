@@ -313,10 +313,10 @@
                              AcceptsReturn="True" 
                              TextWrapping="Wrap"
                              MaxLength="20"
-                             Margin="5,5,5,5" 
+                             Margin="5,5,5,0" 
                              FontSize="20"
                              Padding="5 3 5 2" 
-                             TextChanged="TextBox_TextChanged_1"/>
+                             TextChanged="TextBox_TextChanged_1" Height="37" VerticalAlignment="Top"/>
 
                     <Label Grid.Column="2" 
                            Content="JSHSHIR:" 
@@ -664,8 +664,10 @@
 
                     <Button Grid.Column="2" 
                             Content="Save"
-                            Margin="0 5 10 5" 
-                            Click="Button_Click"/>
+                            Margin="0,5,10,0" 
+                            Click="Button_Click" 
+                            Height="37" 
+                            VerticalAlignment="Top"/>
                 </Grid>
 
                 <!-- bank nomi qatori -->

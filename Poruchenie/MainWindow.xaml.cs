@@ -823,12 +823,12 @@ public partial class MainWindow : Window
         }
         else
         {
-            jismoniy.Name = tbOluvchiNomi.Text;
-            jismoniy.Bank = tbOluvchiBank.Text;
+            jismoniy.Name = tbOluvchiNomi1.Text;
+            jismoniy.Bank = tbOluvchiBank1.Text;
             jismoniy.CreatedAt = DateTime.UtcNow;
-            jismoniy.CountNumber = tbOluvchiXr.Text;
+            jismoniy.CountNumber = tbOluvchiXr1.Text;
             jismoniy.PINFL = tbOluvchiJshshir.Text;
-            jismoniy.MFO = tbOluvchiMfo.Text;
+            jismoniy.MFO = tbOluvchiMfo1.Text;
 
             await jismoniyService.CreateAsync(jismoniy);
         }
