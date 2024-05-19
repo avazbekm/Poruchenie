@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using Poruchenie.Pages;
+using Poruchenie.Helpers;
 using System.Windows.Controls;
 using Poruchenie.Domain.Etities;
 using Poruchenie.Service.Services;
 using Poruchenie.Service.Interfaces;
-using Poruchenie.Helpers;
+using System.Windows.Media;
 
 namespace Poruchenie;
 
@@ -18,7 +19,7 @@ public partial class MainWindow : Window
 
     private readonly IJismoniyService jismoniyService;
     private readonly Jismoniy jismoniy = new Jismoniy();
-    
+
     Pechat pechat = new Pechat();
     YurdikMuhrli yurdikMuhrli = new YurdikMuhrli();
     JisYur jisYur = new JisYur();
@@ -70,20 +71,26 @@ public partial class MainWindow : Window
 
                 tbTulovchiMfo.Text = existCount.Data.MFO;
 
-                tbRahbar.Text = existCount.Data.Rahbar;
-                tbBoshXisobchi.Text=existCount.Data.BoshXisobchi;
+                if (tbRahbar.Text != null)
+                    tbRahbar.Text = existCount.Data.Rahbar;
+                else tbRahbar.Text = string.Empty;
+
+                if (tbBoshXisobchi.Text != null)
+                    tbBoshXisobchi.Text = existCount.Data.BoshXisobchi;
+                else tbBoshXisobchi.Text = string.Empty;
+
             }
 
             // Agar 20 ta raqam to'liq kiritilgan bo'lsa, texboxga kiritishni to'xtatamiz
             textBox.TextChanged -= TextBox_TextChanged;
         }
-            // 20 ta raqam to'liq kiritilganligini tekshiramiz
+        // 20 ta raqam to'liq kiritilganligini tekshiramiz
         if (text.Length == 20 && selectedValue.Equals("Jismoniy shaxs"))
         {
             var existCountJismoniy = await jismoniyService.GetByCountNumberAsync(text.ToString());
             if (existCountJismoniy.Data != null)
             {
-                tbTulovchiBank2.Text = existCountJismoniy.Data.Bank ;
+                tbTulovchiBank2.Text = existCountJismoniy.Data.Bank;
                 tbTulovchiJshshir.Text = existCountJismoniy.Data.PINFL.ToString();
 
                 tbTulovchiNomi2.Text = existCountJismoniy.Data.Name;
@@ -101,7 +108,7 @@ public partial class MainWindow : Window
 
         // Raqamni boshqasiga almashtirsa, texboxda qolgan 20 raqam kiritishni ta'minlaymiz
         textBox.TextChanged += TextBox_TextChanged;
-        
+
     }
 
     private async void btnSave_Click(object sender, RoutedEventArgs e)
@@ -129,7 +136,7 @@ public partial class MainWindow : Window
             jismoniy.CountNumber = tbTulovchiXr2.Text;
             jismoniy.PINFL = tbTulovchiJshshir.Text;
             jismoniy.MFO = tbTulovchiMfo2.Text;
-            jismoniy.Rahbar= tbRahbar.Text;
+            jismoniy.Rahbar = tbRahbar.Text;
 
             await jismoniyService.CreateAsync(jismoniy);
         }
@@ -138,9 +145,9 @@ public partial class MainWindow : Window
     private void btnPechat(object sender, RoutedEventArgs e)
     {
         string selectedValue = ((ComboBoxItem)Muhr.SelectedItem).Content.ToString();
-        
+
         // yurdikdan yurdikka muhrli bo'lganda
-        if (selectedValue.Equals("Muhrli") && 
+        if (selectedValue.Equals("Muhrli") &&
             Yurdik.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -150,13 +157,16 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker.SelectedDate;
+            DateTime? selectedDate4 = datePicker4.SelectedDate;
+
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate4.HasValue)
             {
-                yurdikMuhrli.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurdikMuhrli.tbSana.Text = $"   Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
-
+             
             yurdikMuhrli.tbTulovchi.Text = $"{tbTulovchiNomi.Text,30}";
             yurdikMuhrli.tbInn.Text = tbTulovchiInn.Text;
             yurdikMuhrli.tbTulovchiXr.Text = tbTulovchiXr.Text;
@@ -181,9 +191,10 @@ public partial class MainWindow : Window
             yurdikMuhrli.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate4.HasValue)
             {
-                yurdikMuhrli.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurdikMuhrli.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
 
             yurdikMuhrli.tbTulovchi1.Text = $"{tbTulovchiNomi.Text,30}";
@@ -211,77 +222,80 @@ public partial class MainWindow : Window
         }
 
         // yurdikdan yurdikka muhrsiz bo'lganda
-        else if (selectedValue.Equals("Muhrsiz") && 
+        else if (selectedValue.Equals("Muhrsiz") &&
             Yurdik.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
             #region Porucheniyani yuqori qismi
 
-        pechat.tbNumber.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
+            pechat.tbNumber.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
 
-        // DatePickerdan sana olish
-        DateTime? selectedDate = datePicker.SelectedDate;
+            // DatePickerdan sana olish
+            DateTime? selectedDate = datePicker.SelectedDate;
+            DateTime? selectedDate4 = datePicker4.SelectedDate;
 
-        // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-        if (selectedDate.HasValue)
-        {
-            pechat.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
-        }
+            // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
+            if (selectedDate.HasValue && selectedDate4.HasValue)
+            {
+                pechat.tbSana.Text = $"     Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
+            }
 
-        pechat.tbTulovchi.Text = $"{tbTulovchiNomi.Text,30}";
-        pechat.tbInn.Text = tbTulovchiInn.Text;
-        pechat.tbTulovchiXr.Text = tbTulovchiXr.Text;
-        pechat.tbTolovchiMfo.Text = tbTulovchiMfo.Text;
-        pechat.tbTulovchiBank.Text = tbTulovchiBank.Text;
+            pechat.tbTulovchi.Text = $"{tbTulovchiNomi.Text,30}";
+            pechat.tbInn.Text = tbTulovchiInn.Text;
+            pechat.tbTulovchiXr.Text = tbTulovchiXr.Text;
+            pechat.tbTolovchiMfo.Text = tbTulovchiMfo.Text;
+            pechat.tbTulovchiBank.Text = tbTulovchiBank.Text;
 
-        pechat.tbSumma.Text = tbSumma.Text;
+            pechat.tbSumma.Text = tbSumma.Text;
 
-        pechat.tbOluvchi.Text = tbOluvchiNomi.Text;
-        pechat.tbOluvchiInn.Text = tbOluvchiInn.Text;
-        pechat.tbOluvchiXr.Text = tbOluvchiXr.Text;
-        pechat.tbOluvchiBank.Text = tbOluvchiBank.Text;
-        pechat.tbOluvchiMfo.Text = tbOluvchiMfo.Text;
+            pechat.tbOluvchi.Text = tbOluvchiNomi.Text;
+            pechat.tbOluvchiInn.Text = tbOluvchiInn.Text;
+            pechat.tbOluvchiXr.Text = tbOluvchiXr.Text;
+            pechat.tbOluvchiBank.Text = tbOluvchiBank.Text;
+            pechat.tbOluvchiMfo.Text = tbOluvchiMfo.Text;
 
-        pechat.tbSummaSoz.Text = tbSummaSoz.Text;
-        pechat.tbTulovMaqsadi.Text = $"{tbTulovMaqsad.Text}";
-        pechat.tbRahbar.Text = tbRahbar.Text;
-        pechat.tbBoshXisobchi.Text = tbBoshXisobchi.Text;
-        #endregion
+            pechat.tbSummaSoz.Text = tbSummaSoz.Text;
+            pechat.tbTulovMaqsadi.Text = $"{tbTulovMaqsad.Text}";
+            pechat.tbRahbar.Text = tbRahbar.Text;
+            pechat.tbBoshXisobchi.Text = tbBoshXisobchi.Text;
+            #endregion
 
             #region Porucheniyani paskqi qismi
-        pechat.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
+            pechat.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
 
-        // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-        if (selectedDate.HasValue)
-        {
-            pechat.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
-        }
+            // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
+            if (selectedDate.HasValue && selectedDate4.HasValue)
+            {
+                pechat.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
+            }
 
-        pechat.tbTulovchi1.Text = $"{tbTulovchiNomi.Text,30}";
-        pechat.tbInn1.Text = tbTulovchiInn.Text;
-        pechat.tbTulovchiXr1.Text = tbTulovchiXr.Text;
-        pechat.tbTolovchiMfo1.Text = tbTulovchiMfo.Text;
-        pechat.tbTulovchiBank1.Text = tbTulovchiBank.Text;
+            pechat.tbTulovchi1.Text = $"{tbTulovchiNomi.Text,30}";
+            pechat.tbInn1.Text = tbTulovchiInn.Text;
+            pechat.tbTulovchiXr1.Text = tbTulovchiXr.Text;
+            pechat.tbTolovchiMfo1.Text = tbTulovchiMfo.Text;
+            pechat.tbTulovchiBank1.Text = tbTulovchiBank.Text;
 
-        pechat.tbSumma1.Text = tbSumma.Text;
+            pechat.tbSumma1.Text = tbSumma.Text;
 
-        pechat.tbOluvchi1.Text = tbOluvchiNomi.Text;
-        pechat.tbOluvchiInn1.Text = tbOluvchiInn.Text;
-        pechat.tbOluvchiXr1.Text = tbOluvchiXr.Text;
-        pechat.tbOluvchiBank1.Text = tbOluvchiBank.Text;
-        pechat.tbOluvchiMfo1.Text = tbOluvchiMfo.Text;
+            pechat.tbOluvchi1.Text = tbOluvchiNomi.Text;
+            pechat.tbOluvchiInn1.Text = tbOluvchiInn.Text;
+            pechat.tbOluvchiXr1.Text = tbOluvchiXr.Text;
+            pechat.tbOluvchiBank1.Text = tbOluvchiBank.Text;
+            pechat.tbOluvchiMfo1.Text = tbOluvchiMfo.Text;
 
-        pechat.tbSummaSoz1.Text = tbSummaSoz.Text;
-        pechat.tbTulovMaqsadi1.Text = $"{tbTulovMaqsad.Text}";
-        pechat.tbRahbar1.Text = tbRahbar.Text;
-        pechat.tbBoshXisobchi1.Text = tbBoshXisobchi.Text;
-        #endregion
-     
+            pechat.tbSummaSoz1.Text = tbSummaSoz.Text;
+            pechat.tbTulovMaqsadi1.Text = $"{tbTulovMaqsad.Text}";
+            pechat.tbRahbar1.Text = tbRahbar.Text;
+            pechat.tbBoshXisobchi1.Text = tbBoshXisobchi.Text;
+            #endregion
+
             pechat.ChopEt();
         }
 
         // YaTT dan yudikka muhrli bo'lganda
-        else if (selectedValue.Equals("Muhrli") && 
+        else if (selectedValue.Equals("Muhrli") &&
             Jismoniy.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
@@ -291,11 +305,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate3 = datePicker3.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisYurMuhrli.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisYurMuhrli.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisYurMuhrli.tbTulovchi.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -322,9 +338,10 @@ public partial class MainWindow : Window
             jisYurMuhrli.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber2.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisYurMuhrli.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisYurMuhrli.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisYurMuhrli.tbTulovchi1.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -351,8 +368,8 @@ public partial class MainWindow : Window
         }
 
         // YaTT dan yudikka muhrsiz bo'lganda
-        else if (selectedValue.Equals("Muhrsiz") && 
-            Jismoniy.Visibility==Visibility.Visible &&
+        else if (selectedValue.Equals("Muhrsiz") &&
+            Jismoniy.Visibility == Visibility.Visible &&
             Yurdik1.Visibility == Visibility.Visible)
         {
             #region Porucheniyani yuqori qismi
@@ -361,11 +378,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate3 = datePicker3.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisYur.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisYur.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                 Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisYur.tbTulovchi.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -392,9 +411,10 @@ public partial class MainWindow : Window
             jisYur.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber2.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisYur.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisYur.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                  Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisYur.tbTulovchi1.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -433,11 +453,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate3 = datePicker3.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisJisMuhrsiz.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisJisMuhrsiz.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisJisMuhrsiz.tbTulovchi.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -464,9 +486,10 @@ public partial class MainWindow : Window
             jisJisMuhrsiz.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber2.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisJisMuhrsiz.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisJisMuhrsiz.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                    Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisJisMuhrsiz.tbTulovchi1.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -505,11 +528,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate3 = datePicker3.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisJisMuhrli.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisJisMuhrli.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisJisMuhrli.tbTulovchi.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -536,9 +561,10 @@ public partial class MainWindow : Window
             jisJisMuhrli.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber2.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate3.HasValue)
             {
-                jisJisMuhrli.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                jisJisMuhrli.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate3.Value.ToShortDateString()}";
             }
 
             jisJisMuhrli.tbTulovchi1.Text = $"{tbTulovchiNomi2.Text,30}";
@@ -577,11 +603,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate4 = datePicker4.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate4.HasValue)
             {
-                yurJisMuhrli.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurJisMuhrli.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
 
             yurJisMuhrli.tbTulovchi.Text = $"{tbTulovchiNomi.Text,30}";
@@ -608,9 +636,10 @@ public partial class MainWindow : Window
             yurJisMuhrli.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate4.HasValue)
             {
-                yurJisMuhrli.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurJisMuhrli.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
 
             yurJisMuhrli.tbTulovchi1.Text = $"{tbTulovchiNomi.Text,30}";
@@ -649,11 +678,13 @@ public partial class MainWindow : Window
 
             // DatePickerdan sana olish
             DateTime? selectedDate = datePicker2.SelectedDate;
+            DateTime? selectedDate4 = datePicker4.SelectedDate;
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
             if (selectedDate.HasValue)
             {
-                yurJisMuhrsiz.tbSana.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurJisMuhrsiz.tbSana.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
 
             yurJisMuhrsiz.tbTulovchi.Text = $"{tbTulovchiNomi.Text,30}";
@@ -680,9 +711,10 @@ public partial class MainWindow : Window
             yurJisMuhrsiz.tbNumber1.Text = $"TO'LOV TOPSHIRIQNOMA   № {tbMainNuber.Text}";
 
             // Agar sana tanlangan bo'lsa, uni textBlockga o'rnatish
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue && selectedDate4.HasValue)
             {
-                yurJisMuhrsiz.tbSana1.Text = $"      Sana    {selectedDate.Value.ToShortDateString()}";
+                yurJisMuhrsiz.tbSana1.Text = $"      Xujjat sanasi    {selectedDate.Value.ToShortDateString()}" +
+                    $"                                                     Valyutalashtirish sanasi    {selectedDate4.Value.ToShortDateString()}";
             }
 
             yurJisMuhrsiz.tbTulovchi1.Text = $"{tbTulovchiNomi.Text,30}";
@@ -781,7 +813,7 @@ public partial class MainWindow : Window
                 tbOluvchiMfo.Text = existCount.Data.MFO;
             }
 
-            // Agar 20 ta raqam to'liq kiritilgan bo'lsa, texboxga kiritishni to'xtatamiz
+        // Agar 20 ta raqam to'liq kiritilgan bo'lsa, texboxga kiritishni to'xtatamiz
             textBox.TextChanged -= TextBox_TextChanged;
             return;
         }
@@ -884,14 +916,14 @@ public partial class MainWindow : Window
         // 5 ta raqam to'liq kiritilganligini tekshiramiz
         if (text.Length == 5)
         {
-            if((tbTulovchiBank.Text.Equals(string.Empty)||
-                tbTulovchiXr.Text.Equals("")||
-                !(await yurdikService.GetByCountNumberAsync(tbTulovchiXr.Text)).Message.Equals("Ok")) && 
+            if ((tbTulovchiBank.Text.Equals(string.Empty) ||
+                tbTulovchiXr.Text.Equals("") ||
+                !(await yurdikService.GetByCountNumberAsync(tbTulovchiXr.Text)).Message.Equals("Ok")) &&
                 Yurdik.Visibility == Visibility.Visible)
                 tbTulovchiBank.Text = GetByFilialiMfo.GetBankNameByMfo(text);
 
             else if ((tbTulovchiBank2.Text.Equals("") ||
-                tbTulovchiXr2.Text.Equals("")||
+                tbTulovchiXr2.Text.Equals("") ||
                 !(await jismoniyService.GetByCountNumberAsync(tbTulovchiXr.Text)).Message.Equals("Ok")) &&
                 Jismoniy.Visibility == Visibility.Visible)
                 tbTulovchiBank2.Text = GetByFilialiMfo.GetBankNameByMfo(text);
@@ -996,15 +1028,15 @@ public partial class MainWindow : Window
         if (long.TryParse(tbSumma.Text, out long number))
         {
             tbSummaSoz.Text = $"{RaqamdanSozga(number)} so'm";
-            
+
             //bunda Jismoniydan Jismoniyga pul o'tkanda 
             if (Jismoniy1.Visibility == Visibility.Visible)
                 tbSummaSoz1.Text = tbSummaSoz.Text;
         }
         else
         {
-            if(tbSumma.Text.Length > 0)
-            { 
+            if (tbSumma.Text.Length > 0)
+            {
                 // Nuqta indeksini topamiz
                 int dotIndex = tbSumma.Text.IndexOf('.');
 
@@ -1154,7 +1186,12 @@ public partial class MainWindow : Window
             cbYudik1.SelectedIndex = 0;
             Yurdik.Visibility = Visibility.Visible;
             Jismoniy.Visibility = Visibility.Collapsed;
-
+        }
+        else
+        {
+            cbYudik1.SelectedIndex = 1;
+            Yurdik.Visibility = Visibility.Collapsed;
+            Jismoniy.Visibility = Visibility.Visible;
         }
     }
 
@@ -1202,11 +1239,11 @@ public partial class MainWindow : Window
     {
         string selectValue = ((ComboBoxItem)cbJismoniy.SelectedItem).Content.ToString();
 
-        if(selectValue.Equals("Yurdik shaxs"))
+        if (selectValue.Equals("Yurdik shaxs"))
         {
             cbJismoniy.SelectedIndex = 0;
-            Yurdik1.Visibility=Visibility.Visible;
-            Jismoniy1.Visibility=Visibility.Collapsed;
+            Yurdik1.Visibility = Visibility.Visible;
+            Jismoniy1.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -1225,5 +1262,31 @@ public partial class MainWindow : Window
     private void Button_GiveFeedback(object sender, GiveFeedbackEventArgs e)
     {
 
+    }
+
+    private void Muhr_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (Muhr.SelectedItem is ComboBoxItem selectedItem)
+        {
+            if (selectedItem.Content.ToString() == "Muhrli")
+            {
+                Muhr.Background = new SolidColorBrush(Colors.Green);
+            }
+            else
+            {
+                // Reset to default background color or set to another color if needed
+                Muhr.Background = new SolidColorBrush(Colors.Red);
+            }
+        }
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show($"\tAssalomu alaykum hurmatli foydalanuvchi!\n" +
+            $" Bu dastur xisob raqamdan xisob raqamga pul ko'chirishda foydalaniladi." +
+            $" Aziz foydalanuvchi sizning vaqtingizni tejashga hamda ishlashda qulaylik imkonini yaratgan" +
+            $" bo'lsam mamnunman. Dastur mutlaqo tekin, duoda onamni eslab qo'ysangiz hursand bo'lardim." +
+            $" Dasturdan foydalanganingiz uchun tashakkur!\n" +
+            $" hurmat bilan Avazbek.");
     }
 }

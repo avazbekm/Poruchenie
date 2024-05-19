@@ -46,5 +46,29 @@
     "CreatedAt": "2024-03-11T09:56:31.85888Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
+  },
+  {
+    "Name": "YaTT asdfljaklsdfklj lkajdfkl",
+    "PINFL": "12324554545454",
+    "CountNumber": "20218000235665656565",
+    "MFO": "00002",
+    "Bank": "Markaziy bankning Chakana to'lovlar kliring markazi",
+    "Rahbar": "",
+    "Id": 5,
+    "CreatedAt": "2024-03-15T11:25:37.8201971Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "jghjhkj",
+    "PINFL": "12345678900001",
+    "CountNumber": "20218000100100100000",
+    "MFO": "00545",
+    "Bank": "\"O'zmilliybank\" Qo'qon filiali",
+    "Rahbar": "",
+    "Id": 6,
+    "CreatedAt": "2024-03-26T17:46:25.5182658Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
   }
 ]
