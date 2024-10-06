@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Poruchenie"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="To'lov topshiriqnoma" 
         Height="750" 
         Width="700"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid x:Name="grAsosiy"
+          Visibility="Visible">
         <Grid.RowDefinitions>
             <RowDefinition Height="270"/>
             <RowDefinition Height="270"/>
@@ -175,7 +176,7 @@
 
                     <Button x:Name="btnSave"
                             Grid.Column="6" 
-                            Content="Save"
+                            Content="Saqlash"
                             Margin="0,5,10,5" 
                             Click="btnSave_Click"/>
                 </Grid>
@@ -215,8 +216,7 @@
                              MaxLength="50"
                              Margin="5 5 8 5" 
                              FontSize="20"
-                             Padding="5 3 5 2" 
-                             TextChanged="TextBox_TextChanged_3"/>
+                             Padding="5 3 5 2"/>
                 </Grid>
 
                 <!-- summa nomi qatori -->
@@ -405,7 +405,7 @@
                     <Button x:Name="btnSave2"
                             Grid.Column="6" 
                             Margin="0,5,10,5" 
-                            Content="Save"
+                            Content="Saqlash"
                             Click="btnSave_Click"/>
 
                 </Grid>
@@ -444,8 +444,7 @@
                              MaxLength="50"
                              Margin="5 5 8 5" 
                              FontSize="20"
-                             Padding="5 3 5 2" 
-                             TextChanged="TextBox_TextChanged_3"/>
+                             Padding="5 3 5 2"/>
                 </Grid>
 
                 <!--summa nomi qatori-->
@@ -554,7 +553,7 @@
                              TextChanged="TextBox_TextChanged"/>
 
                     <Button Grid.Column="2" 
-                            Content="Save"
+                            Content="Saqlash"
                             Margin="0 5 10 5" 
                             Click="Button_Click"/>
                 </Grid>
@@ -703,7 +702,7 @@
                              TextChanged="TextBox_TextChanged"/>
 
                     <Button Grid.Column="2" 
-                            Content="Save"
+                            Content="Saqlash"
                             Margin="0,5,10,0" 
                             Click="Button_Click" 
                             Height="37" 
@@ -860,7 +859,9 @@
 
                     </ComboBox>
 
-                    <Button Grid.Column="1"
+                    <Button x:Name="btnPrint" 
+                            Grid.Column="1"
+                            Visibility="Visible"
                             Margin="0 0 0 6"
                             Width="200"
                             Height="45"
@@ -883,9 +884,10 @@
                     <Button Grid.Column="3"
                             Margin="0 0 10 7"
                             Content="?"
-                            FontSize="20" Click="Button_Click_1">
-                        
-                    </Button>
+                            FontSize="20" 
+                            Click="Button_Click_1" 
+                            Height="44" 
+                            VerticalAlignment="Bottom"/>
                 </Grid>
             </StackPanel>
         </Grid>

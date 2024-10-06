@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using Poruchenie.Pages;
 using Poruchenie.Helpers;
+using System.Windows.Media;
 using System.Windows.Controls;
 using Poruchenie.Domain.Etities;
 using Poruchenie.Service.Services;
 using Poruchenie.Service.Interfaces;
-using System.Windows.Media;
 
 namespace Poruchenie;
 
@@ -20,6 +20,8 @@ public partial class MainWindow : Window
     private readonly IJismoniyService jismoniyService;
     private readonly Jismoniy jismoniy = new Jismoniy();
 
+    private readonly IBlockDateService blockService;
+
     Pechat pechat = new Pechat();
     YurdikMuhrli yurdikMuhrli = new YurdikMuhrli();
     JisYur jisYur = new JisYur();
@@ -30,6 +32,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         yurdikService = new YurdikService();
         jismoniyService = new JismoniyService();
+        blockService = new BlockDateService();
     }
 
     private void btnExit(object sender, RoutedEventArgs e)
@@ -144,6 +147,17 @@ public partial class MainWindow : Window
 
     private void btnPechat(object sender, RoutedEventArgs e)
     {
+        var date = blockService.GetAsync().Result.Data.BlockDate.ToString();
+        date = date.Substring(date.Length - 10);
+
+        if (DateTime.Parse(date) <= DateTime.UtcNow)
+        {
+            BlockWindow blockWindow = new BlockWindow();
+            blockWindow.Show();
+            return;
+        }
+
+
         string selectedValue = ((ComboBoxItem)Muhr.SelectedItem).Content.ToString();
 
         // yurdikdan yurdikka muhrli bo'lganda
@@ -776,10 +790,6 @@ public partial class MainWindow : Window
 
     }
 
-    private void TextBox_TextChanged_3(object sender, TextChangedEventArgs e)
-    {
-
-    }
 
     private async void TextBox_TextChanged_4(object sender, TextChangedEventArgs e)
     {
@@ -1245,6 +1255,12 @@ public partial class MainWindow : Window
             Yurdik1.Visibility = Visibility.Visible;
             Jismoniy1.Visibility = Visibility.Collapsed;
         }
+        else
+        {
+            cbJismoniy.SelectedIndex = 1;
+            Yurdik1.Visibility = Visibility.Collapsed;
+            Jismoniy1.Visibility = Visibility.Visible;
+        }
     }
 
     private void cbYurdikk_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1257,6 +1273,7 @@ public partial class MainWindow : Window
             Jismoniy1.Visibility = Visibility.Visible;
             Yurdik1.Visibility = Visibility.Collapsed;
         }
+       
     }
 
     private void Button_GiveFeedback(object sender, GiveFeedbackEventArgs e)
@@ -1283,10 +1300,6 @@ public partial class MainWindow : Window
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         MessageBox.Show($"\tAssalomu alaykum hurmatli foydalanuvchi!\n" +
-            $" Bu dastur xisob raqamdan xisob raqamga pul ko'chirishda foydalaniladi." +
-            $" Aziz foydalanuvchi sizning vaqtingizni tejashga hamda ishlashda qulaylik imkonini yaratgan" +
-            $" bo'lsam mamnunman. Dastur mutlaqo tekin, duoda onamni eslab qo'ysangiz hursand bo'lardim." +
-            $" Dasturdan foydalanganingiz uchun tashakkur!\n" +
-            $" hurmat bilan Avazbek.");
+            $"\n\n \tMurojaat uchun: 97 3340334\n Telegram username: @avazbeksm");
     }
 }

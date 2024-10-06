@@ -13,7 +13,7 @@
   },
   {
     "Name": "",
-    "PINFL": "85666666666666",
+    "PINFL": "",
     "CountNumber": "",
     "MFO": "",
     "Bank": "",
@@ -68,6 +68,30 @@
     "Rahbar": "",
     "Id": 6,
     "CreatedAt": "2024-03-26T17:46:25.5182658Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "YaTT Umarov Qodirjon",
+    "PINFL": "12345678914255",
+    "CountNumber": "20218000444105231001",
+    "MFO": "00425",
+    "Bank": "\"Ipoteka-bank\" ATIB Shayxontoxur filiali",
+    "Rahbar": "",
+    "Id": 7,
+    "CreatedAt": "2024-05-20T09:32:37.5041414Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "YaTT Qosimov Umarjon",
+    "PINFL": "14523698745511",
+    "CountNumber": "20218000300145269001",
+    "MFO": "00487",
+    "Bank": "\"Ipoteka-bank\" ATIB Ohangaron filiali",
+    "Rahbar": "U.Qosimov",
+    "Id": 8,
+    "CreatedAt": "2024-05-29T03:56:24.6264798Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
   }

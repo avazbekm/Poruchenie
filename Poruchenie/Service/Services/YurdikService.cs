@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-using NodaTime.TimeZones.Cldr;
 using Poruchenie.Domain.Etities;
 using Poruchenie.Service.Exceptions;
 using Poruchenie.Service.Interfaces;
@@ -61,7 +60,8 @@ public class YurdikService : IYurdikService
         Yurdik lastYurdik = yurdiks.LastOrDefault();
         if (lastYurdik is null)
             yurdik.Id = 1;
-        else yurdik.Id = 1 + lastYurdik.Id;
+        else 
+            yurdik.Id = 1 + lastYurdik.Id;
 
         yurdiks.Add(yurdik);
         source = JsonConvert.SerializeObject(yurdiks, Formatting.Indented);
@@ -80,7 +80,7 @@ public class YurdikService : IYurdikService
         string source = File.ReadAllText(Path);
         List<Yurdik> yurdiks = JsonConvert.DeserializeObject<List<Yurdik>>(source);
 
-        Yurdik existYurdik = yurdiks.FirstOrDefault(a => a.CountNumber==(count));
+        Yurdik existYurdik = yurdiks.FirstOrDefault(a => a.CountNumber == (count));
         if ( existYurdik is not null)
             return new Response<Yurdik>
             {

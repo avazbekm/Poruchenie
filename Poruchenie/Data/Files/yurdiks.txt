@@ -24,5 +24,18 @@
     "CreatedAt": "2024-03-11T09:57:29.9908795Z",
     "UpdatedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
+  },
+  {
+    "Name": "Grand MCHJ",
+    "INN": 222222222,
+    "CountNumber": "11111111111111111111",
+    "MFO": "00201",
+    "Bank": " АJ \"Garant bank\" Navoiy shahar filiali",
+    "Rahbar": "A.Nosirov",
+    "BoshXisobchi": "G.Hurmatov",
+    "Id": 3,
+    "CreatedAt": "2024-05-20T04:15:09.4339813Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
   }
 ]
