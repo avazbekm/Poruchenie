@@ -147,6 +147,15 @@ public partial class MainWindow : Window
 
     private void btnPechat(object sender, RoutedEventArgs e)
     {
+
+        var result = blockService.GetAsync().Result.Data;
+        if (result is null)
+        {
+            BlockWindow blockWindow = new BlockWindow();
+            var endDate = blockService.CreateAsync().Result.StatusCode;
+            if (!endDate.Equals(200))
+                MessageBox.Show("Xatolik sodir bo'ldi.");
+        }
         var date = blockService.GetAsync().Result.Data.BlockDate.ToString();
         date = date.Substring(date.Length - 10);
 

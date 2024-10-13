@@ -19,15 +19,15 @@ public partial class BlockWindow : Window
 
     private async void btnTasdiqlash_Click(object sender, RoutedEventArgs e)
     {
-        string password = tbUsername.Text + DateTimeOffset.Now.Date.AddDays(10).ToString().Substring(0, 10);
+        
+        var oldCode = (await blockService.GetAsync()).Data.OldCode;
 
-        //var term = tbUsername.Text.Substring(tbUsername.Text.Length - 10);
-
-        // necha oy ishlanini aniqlab olamiz
-       // int months = int.Parse(term);
-
-        // Hash the password
-        //string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+        if (oldCode.Equals(tbParol.Text)) 
+        {
+            MessageBox.Show("Bu paroldan foydalangansiz. Yangi parol kiriting");
+            return;
+        }
+        string password = tbUsername.Text + DateTimeOffset.UtcNow.AddMinutes(7).ToString().Substring(0,16);
 
         try
         {
@@ -36,14 +36,18 @@ public partial class BlockWindow : Window
             if (isVerified)
             {
                 var result = await blockService.UpdateAsync();
-                var term =result.Data.BlockDate.ToString();
-                term=term.Substring(term.Length - 10);
+                var term = result.Data.BlockDate.ToString();
+                term = term.Substring(term.Length - 10);
 
                 if (result.StatusCode.Equals(200))
                 {
                     MessageBox.Show($"{term} gacha to'liq ishlaydi.");
                     this.Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Muddati tugagan paroldan foydalanmoqchisiz. Yangi parol kiriting. ");
             }
         }
         catch
